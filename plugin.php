@@ -65,11 +65,12 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
 
     private function request_uri(&$uri) {
         // Set is_tag to true if the first four characters of the URL are 'tag/'
-        $this->is_tag = (substr($uri, 1, 4) === 'tag/');
+        $this->is_tag = (substr($uri, 0, 4) === 'tag/');
         error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
-        error_log("Substr: " . substr($uri, 1, 4), 0);
+        error_log("Substr: " . substr($uri, 0, 4), 0);
         // If the URL does start with 'tag/', grab the rest of the URL
-        if ($this->is_tag) $this->current_tag = substr($uri, 5);
+        if ($this->is_tag) $this->current_tag = substr($uri, 4);
+        error_log("current_tag: " . $this->current_tag,0);
     }
 
     private function export_twig_vars() {
