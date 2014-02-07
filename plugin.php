@@ -38,11 +38,9 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
                 $data['meta']['tags'] = $this->tags_convert($data['meta']['tags']);
             }
             if ($this->is_tag) {
-                // TODO User configurable template name
-                $data['meta']['template'] = "tag";
+                $data['meta']['template'] = $this->tag_template;
             }
         }
-        // TODO call getPages() somewhere
     }
 
     private function tags_convert($tags) {
@@ -56,41 +54,45 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         // merge the arrays to bind the settings to the view
         // Note: this->config takes precedence
         $this->config = array_merge($this->settings, $this->config);
+
         if (isset ($this->config['tag_separator'])) {
             $this->tag_separator = $this->config['tag_separator'];
         } else {
             $this->tag_separator = ',';
         }
+        if (isset ($this->config['tag_template'])) {
+            $this->tag_template = $this->config['tag_template'];
+        } else {
+            $this->tag_template = 'tag';
+        } 
     }
 
     private function request_uri(&$uri) {
         // Set is_tag to true if the first four characters of the URL are 'tag/'
         $this->is_tag = (substr($uri, 0, 4) === 'tag/');
-        error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
-        error_log("Substr: " . substr($uri, 0, 4), 0);
+        //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
+        //error_log("Substr: " . substr($uri, 0, 4), 0);
         // If the URL does start with 'tag/', grab the rest of the URL
         if ($this->is_tag) $this->current_tag = substr($uri, 4);
-        error_log("current_tag: " . $this->current_tag,0);
+        //error_log("current_tag: " . $this->current_tag,0);
     }
 
     private function export_twig_vars() {
-        if ($this->is_tag) {
-            if (\Phile\Registry::isRegistered('templateVars')) {
-                $twig_vars = \Phile\Registry::get('templateVars');
-            } else {
-                $twig_vars = array();
-            }
+        // Don't do anything if not a tag/ page
+        if (!$this->is_tag) return;
 
-            // Override 404 header
-            header($_SERVER['SERVER_PROTOCOL'].' 200 OK');
-            // Set page title to #TAG
-            $twig_vars['meta']['title'] = "#" . $this->current_tag;
-            // Return current tag and list of all tags as Twig vars
-            $twig_vars['current_tag'] = $this->current_tag; /* {{ current_tag }} is a string*/
-            // TODO remove following line?
-            $twig_vars['tag_list'] = $this->tag_list; /* {{ tag_list }} in an array*/
-            \Phile\Registry::set('templateVars', $twig_vars);
+        if (\Phile\Registry::isRegistered('templateVars')) {
+            $twig_vars = \Phile\Registry::get('templateVars');
+        } else {
+            $twig_vars = array();
         }
-    }
 
+        // Override 404 header
+        header($_SERVER['SERVER_PROTOCOL'].' 200 OK');
+        // Set page title to #TAG
+        $twig_vars['meta']['title'] = '#' . $this->current_tag;
+        // Return current tag and list of all tags as Twig vars
+        $twig_vars['current_tag'] = $this->current_tag; /* {{ current_tag }} is a string*/
+        \Phile\Registry::set('templateVars', $twig_vars);
+    }
 }
