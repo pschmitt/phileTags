@@ -24,6 +24,10 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         \Phile\Event::registerEvent('after_read_file_meta', $this);
         \Phile\Event::registerEvent('request_uri', $this);
         $this->config = \Phile\Registry::get('Phile_Settings');
+
+        // init
+        $this->tag_separator = ',';
+        $this->tag_template = 'tag';
     }
 
     public function on($eventKey, $data = null) {
@@ -57,13 +61,9 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
 
         if (isset ($this->config['tag_separator'])) {
             $this->tag_separator = $this->config['tag_separator'];
-        } else {
-            $this->tag_separator = ',';
         }
         if (isset ($this->config['tag_template'])) {
             $this->tag_template = $this->config['tag_template'];
-        } else {
-            $this->tag_template = 'tag';
         } 
     }
 
