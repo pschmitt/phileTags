@@ -1,24 +1,30 @@
 PhileTags
 ========
 
-Adds page tagging functionality to [Phile](http://philecms.github.io/Phile).
+Plugin adds page tagging functionality to [Phile](http://philecms.github.io/Phile).
 Based on [Pico Tags by Szymon Kaliski](https://github.com/szymonkaliski/Phile-Tags-Plugin), but only uses the provided hooks
 and leaves the Phile core alone.
 
 It gives you access to:
 * If on a `/tag/` URL, the `current_tag` variable
+* For every page, `page.meta.tags_array` --- array of tags for this page
+
 
 ## Installation
 
-Place this repo into the `plugins` directory:
+1. Place this repo into the `plugins` directory:
 
 ```bash
 git clone https://github.com/pschmitt/phileTags /srv/http/plugins/phileTags 
 ```
 
-**Important** Make a new template called `tag` which will be used when requesting a `tag/` URI.  
+* * *
 
-Activate it in `config.php`:
+**Important:** 2. Make a new template called `tag` which will be used when requesting a `tag/` URI.
+
+* * *
+
+3. Activate it in `config.php`:
 
 ```php
 $config['plugins'] = array(
@@ -39,21 +45,26 @@ Description: It's a blog post about javascript and php
 Author: Dan Reeves
 Robots: index,follow
 Date: 2013/10/02
-Tags: js,javascript,php
+Tags: js, javascript, php
 */
 ```
 
 ## Configuration
 
-* You can customize which template should be used when on a `tag/` page by setting `$config['tag_template']`. 
+In `config.php` you can customize:
+
+* `$config['tag_template']` --- which template should be used when on a `tag/` page. 
 This setting defaults to `'tag'`.
 
-* The separator used for splitting the tag meta can also be changed by setting `$config['tag_separator']`. 
+* `$config['tag_separator']` --- the separator used for splitting the tag meta(regexp, like `'\s*'` allowed). 
 Its default value is `','`.
+
 
 ## Templates
 
-You can now access both the current page `meta.tags` and each `page.tags` in the `pages` array:
+You can now access both the current page `meta.tags` and each `page.meta.tags` in the `pages` array:
+
+*not Phile code...*
 
 ```html
 {% if is_front_page %}
