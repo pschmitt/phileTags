@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    'tag_separator' => ',',
-    'tag_template' => 'tag', 
+    'tag_separator' => '\s*,\s*',
+    'tag_template' => 'tag_page', 
 );
