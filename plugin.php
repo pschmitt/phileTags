@@ -34,13 +34,10 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
     {
         if ($eventKey == 'config_loaded') {
             $this->config_loaded();
-        }
-        elseif ($eventKey == 'request_uri')
-        {
-            error_log("data[uri]: " . $data['uri']);
+        } elseif ($eventKey == 'request_uri') {
+            //error_log("data[uri]: " . $data['uri']);
             $this->request_uri($data['uri']);
-        }
-        elseif ($eventKey == 'before_render_template') {
+        } elseif ($eventKey == 'before_render_template') {
             $this->export_twig_vars();
         }
         elseif ($eventKey == 'after_read_file_meta')
@@ -81,12 +78,16 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
 
         $this->is_tag = (0 === stripos(dirname($uri), "tag") ? true : false);
 
-        error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
-        error_log("Substr: " . dirname($uri), 0);
+        //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
+        //error_log("Substr: " . dirname($uri), 0);
 
         // If the URL does start with 'tag/', grab the rest of the URL
-        if ($this->is_tag) $this->current_tag = basename($uri); 
-        error_log("current_tag: " . $this->current_tag,0);
+        $current_tag_raw = basename($uri);
+        //error_log("current_tag_raw: $current_tag_raw");
+
+        if ($this->is_tag)
+            $this->current_tag = urldecode($current_tag_raw);
+        //error_log("current_tag: " . $this->current_tag,0);
     }
 
     private function export_twig_vars() {
