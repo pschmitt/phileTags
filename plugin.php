@@ -46,7 +46,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         elseif ($eventKey == 'after_read_file_meta')
         {
             if (isset($data['meta']['tags'])) {
-                $data['meta']['tags'] = $this->tags_convert($data['meta']['tags']);
+                $data['meta']['tags_array'] = $this->tags_convert($data['meta']['tags']);
             }
             if ($this->is_tag) {
                 $data['meta']['template'] = $this->tag_template;
