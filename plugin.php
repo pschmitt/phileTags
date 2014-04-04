@@ -30,14 +30,21 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         $this->tag_template = 'tag';
     }
 
-    public function on($eventKey, $data = null) {
+    public function on($eventKey, $data = null)
+    {
         if ($eventKey == 'config_loaded') {
             $this->config_loaded();
-        } elseif ($eventKey == 'request_uri') {
+        }
+        elseif ($eventKey == 'request_uri')
+        {
+            error_log("data[uri]: " . $data['uri']);
             $this->request_uri($data['uri']);
-        } elseif ($eventKey == 'before_render_template') {
+        }
+        elseif ($eventKey == 'before_render_template') {
             $this->export_twig_vars();
-        } elseif ($eventKey == 'after_read_file_meta') {
+        }
+        elseif ($eventKey == 'after_read_file_meta')
+        {
             if (isset($data['meta']['tags'])) {
                 $data['meta']['tags'] = $this->tags_convert($data['meta']['tags']);
             }
@@ -67,14 +74,19 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         } 
     }
 
-    private function request_uri(&$uri) {
-        // Set is_tag to true if the first four characters of the URL are '/tag'
-        $this->is_tag = (dirname($uri) === '/tag');
-        //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a /tag page"), 0);
-        //error_log("Substr: " . dirname($uri), 0);
+    private function request_uri(&$uri)
+    {
+        // Set is_tag to true if the first three characters of the URL are 'tag'
+        //error_log("DIRNAME URI: `" . dirname($uri) . "`", 0);
+
+        $this->is_tag = (0 === stripos(dirname($uri), "tag") ? true : false);
+
+        error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
+        error_log("Substr: " . dirname($uri), 0);
+
         // If the URL does start with 'tag/', grab the rest of the URL
         if ($this->is_tag) $this->current_tag = basename($uri); 
-        //error_log("current_tag: " . $this->current_tag,0);
+        error_log("current_tag: " . $this->current_tag,0);
     }
 
     private function export_twig_vars() {
