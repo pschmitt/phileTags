@@ -12,7 +12,7 @@ It gives you access to:
 
 ## Installation
 
-1. Place this repo into the `plugins` directory:
+* Place this repo into the `plugins` directory:
 
 ```bash
 git clone https://github.com/pschmitt/phileTags /srv/http/plugins/phileTags 
@@ -20,11 +20,11 @@ git clone https://github.com/pschmitt/phileTags /srv/http/plugins/phileTags
 
 * * *
 
-**Important:** 2. Make a new template called `tag` which will be used when requesting a `tag/` URI.
+**Important:** Make a new template called `tag` which will be used when requesting a `tag/` URI.
 
 * * *
 
-3. Activate it in `config.php`:
+* Activate it in `config.php`:
 
 ```php
 $config['plugins'] = array(
