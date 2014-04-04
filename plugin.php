@@ -56,7 +56,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
 
     private function tags_convert($tags) {
         if (!isset($tags)) return null;
-        $tags = explode($this->tag_separator, $tags);
+        $tags = mb_split($this->tag_separator, $tags);
         asort($tags);
         return $tags;
     }
