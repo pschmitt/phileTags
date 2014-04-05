@@ -20,7 +20,7 @@ git clone https://github.com/pschmitt/phileTags /srv/http/plugins/phileTags
 
 * * *
 
-**Important:** Make a new template called `tag` which will be used when requesting a `tag/` URI.
+* **Important:** Make a new template called `tag` which will be used when requesting a `tag/` URI.
 
 * * *
 
