@@ -76,7 +76,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         // Set is_tag to true if URL is tag/.*
         //error_log("DIRNAME URI: `" . dirname($uri) . "`", 0);
 
-        $this->is_tag = ((dirname($uri) === "tag") ? true : false);
+        $this->is_tag = (dirname($uri) === "tag");
 
         //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
         //error_log("Substr: " . dirname($uri), 0);
