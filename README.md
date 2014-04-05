@@ -82,14 +82,13 @@ You can now access both the current page `meta.tags` and each `page.meta.tags_ar
 			<h2><a href="{{ base_url }}/{{ page.url }}">{{ page.meta.title }}</a></h2>
 			<div class="excerpt">{{ page.content }}</div>
 
-		{% if page.meta.tags_array %}
 			<span class="meta-tags">Tags:
 			{% for tag in page.meta.tags_array %}
 				<a href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>
 			{% endfor %}
 			</span>
-		{% endif %}
-		</div>
+
+		</div> <!-- // post -->
 
 	{% endif %}
 	{% endfor %}
