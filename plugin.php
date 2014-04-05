@@ -73,10 +73,10 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
 
     private function request_uri(&$uri)
     {
-        // Set is_tag to true if the first three characters of the URL are 'tag'
+        // Set is_tag to true if URL is tag/.*
         //error_log("DIRNAME URI: `" . dirname($uri) . "`", 0);
 
-        $this->is_tag = (0 === stripos(dirname($uri), "tag") ? true : false);
+        $this->is_tag = (dirname($uri) === "tag");
 
         //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
         //error_log("Substr: " . dirname($uri), 0);
@@ -86,7 +86,8 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         //error_log("current_tag_raw: $current_tag_raw");
 
         if ($this->is_tag)
-            $this->current_tag = urldecode($current_tag_raw);
+            $this->current_tag = htmlentities(urldecode($current_tag_raw), 0, "UTF-8");
+
         //error_log("current_tag: " . $this->current_tag,0);
     }
 
