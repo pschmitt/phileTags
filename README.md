@@ -7,7 +7,7 @@ and leaves the Phile core alone.
 
 It gives you access to:
 * If on a `/tag/` URL, the `current_tag` variable
-* For every page, `page.meta.tags_array` --- array of tags for this page
+* For every page, `page.meta.tags_array` --- array of tags for the `page`
 
 
 ## Installation
@@ -43,91 +43,62 @@ Add a new `Tags` attribute to the page meta:
 Title: My First Blog Post
 Description: It's a blog post about javascript and php
 Author: Dan Reeves
-Robots: index,follow
-Date: 2013/10/02
+Date: 2014/04/04
 Tags: js, javascript, php
 */
 ```
+
 
 ## Configuration
 
 In `config.php` you can customize:
 
-* `$config['tag_template']` --- which template should be used when on a `tag/` page. 
+* `$config['tag_template']` - which template should be used when on a `tag/` page. 
 This setting defaults to `'tag'`.
 
-* `$config['tag_separator']` --- the separator used for splitting the tag meta(regexp, like `'\s*'` allowed). 
+* `$config['tag_separator']` - the separator used for splitting the tag meta(regexps, like `'\s*'` are allowed). 
 Its default value is `','`.
 
 
 ## Templates
 
-You can now access both the current page `meta.tags` and each `page.meta.tags` in the `pages` array:
+You can now access both the current page `meta.tags` and each `page.meta.tags_array` in the `pages` array:
 
-*not Phile code...*
+`tag.html` template may look like:
 
 ```html
-{% if is_front_page %}
-<!-- front page -->
-    {% for page in pages %}
-        {% if page.date %}
-            <article>
-                <h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
-                <p class="meta">Tags:
-                    {% for tag in page.tags %}
-                        <a href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>
-                    {% endfor %}
-                </p>
-                {{ page.excerpt }}
-            </article>
-        {% endif %}
-    {% endfor %}
-<!-- front page -->
-{% elseif meta.tags %}
-<!-- blog post -->
-    <article>
-        <h2>{{ meta.title }}</h2>
-        <p class="meta">Tags:
-            {% for tag in meta.tags %}
-                <a href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>
-            {% endfor %}
-        </p>
-        {{ content }}
-    </article>
-<!-- blog post -->
+<!DOCTYPE html>
+<head>
+	<title>{{ meta.title }}</title>
+</head>
+<body>
+	<h2>Posts tagged #{{ current_tag }}:</h2>
 
-{% elseif pages and meta.title != 'Error 404' %}
-<!-- tags page -->
-    All tags:
-    <ul class="tags">
-        {% for tag in tag_list %}
-        <li><a href="/tag/{{ tag }}">#{{ tag }}</a></li>
-        {% endfor %}
-    </ul>
-    <p>Posts tagged <a href="{{ page.url }}">#{{ current_tag }}</a>:</p>
-    {% for page in pages %}
-        {% if page.date %}
-            <article>
-                <h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
-                <p class="meta">Posted on {{ page.date_formatted }} by {{ page.author }}
-                    <span class="tags"><br />Tags:
-                        {% for tag in page.tags %}
-                                <a href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>
-                        {% endfor %}
-                    </span>
-                </p>
-                {{ page.content }}
-            </article>
-        {% endif %}
-    {% endfor %}
-<!-- tags page -->
-{% else %}
-<!-- single page -->
-<article>
-    <h2>{{ meta.title }}</h2>
-    {{ content }}
-</article>
-<!-- single page -->
-{% endif %}
+	{% for page in pages %}
+	{% if page.meta.tags_array and current_tag in page.meta.tags_array %}
+
+		<div class="post">
+
+			<h2><a href="{{ base_url }}/{{ page.url }}">{{ page.meta.title }}</a></h2>
+			<div class="excerpt">{{ page.content }}</div>
+
+		{% if page.meta.tags_array %}
+			<span class="meta-tags">Tags:
+			{% for tag in page.meta.tags_array %}
+				<a href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>
+			{% endfor %}
+			</span>
+		{% endif %}
+		</div>
+
+	{% endif %}
+	{% endfor %}
+
+</body>
+</html>
 ```
+
+## License
+
+MIT
 
