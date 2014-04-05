@@ -2,5 +2,5 @@
 
 return array(
     'tag_separator' => '\s*,\s*',
-    'tag_template' => 'tag_page', 
+    'tag_template' => 'tag'
 );
