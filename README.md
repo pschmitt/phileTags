@@ -9,7 +9,6 @@ It gives you access to:
 * If on a `/tag/` URL, the `current_tag` variable
 * For every page, `page.meta.tags_array` --- array of tags for the `page`
 
-
 ## Installation
 
 * Place this repo into the `plugins` directory:
@@ -20,7 +19,7 @@ git clone https://github.com/pschmitt/phileTags /srv/http/plugins/phileTags
 
 * * *
 
-* **Important:** Make a new template called `tag` which will be used when requesting a `tag/` URI.
+* **Important:** Make a new template called `tag` (i.e. `phile/themes/<your_theme>/tag.html`) which will be used when requesting a `tag/` URI.
 
 * * *
 
@@ -49,7 +48,6 @@ Tags: js, javascript, php
 */
 ```
 
-
 ## Configuration
 
 In `config.php` you can customize:
@@ -59,7 +57,6 @@ This setting defaults to `'tag'`.
 
 * `$config['tag_separator']` - the separator used for splitting the tag meta(regexps, like `'\s*'` are allowed). 
 Its default value is `','`.
-
 
 ## Templates
 
@@ -101,4 +98,3 @@ You can now access both the current page `meta.tags` and each `page.meta.tags_ar
 ## License
 
 MIT
-
