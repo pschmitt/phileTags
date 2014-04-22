@@ -34,12 +34,13 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         if ($eventKey == 'config_loaded') {
             $this->config_loaded();
         } elseif ($eventKey == 'request_uri') {
+            //error_log("data[uri]: " . $data['uri']);
             $this->request_uri($data['uri']);
         } elseif ($eventKey == 'before_render_template') {
             $this->export_twig_vars();
         } elseif ($eventKey == 'after_read_file_meta') {
             if (isset($data['meta']['tags'])) {
-                $data['meta']['tags'] = $this->tags_convert($data['meta']['tags']);
+                $data['meta']['tags_array'] = $this->tags_convert($data['meta']['tags']);
             }
             if ($this->is_tag) {
                 $data['meta']['template'] = $this->tag_template;
@@ -49,7 +50,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
 
     private function tags_convert($tags) {
         if (!isset($tags)) return null;
-        $tags = explode($this->tag_separator, $tags);
+        $tags = mb_split($this->tag_separator, $tags);
         asort($tags);
         return $tags;
     }
@@ -68,12 +69,18 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
     }
 
     private function request_uri(&$uri) {
-        // Set is_tag to true if the first four characters of the URL are '/tag'
-        $this->is_tag = (dirname($uri) === '/tag');
-        //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a /tag page"), 0);
+        // Set is_tag to true if URL is tag/.*
+        //error_log("DIRNAME URI: `" . dirname($uri) . "`", 0);
+        $this->is_tag = (dirname($uri) === "tag");
+        //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
         //error_log("Substr: " . dirname($uri), 0);
         // If the URL does start with 'tag/', grab the rest of the URL
-        if ($this->is_tag) $this->current_tag = basename($uri); 
+
+        $current_tag_raw = basename($uri);
+        //error_log("current_tag_raw: $current_tag_raw");
+
+        if ($this->is_tag)
+            $this->current_tag = htmlentities(urldecode($current_tag_raw), 0, "UTF-8");
         //error_log("current_tag: " . $this->current_tag,0);
     }
 
