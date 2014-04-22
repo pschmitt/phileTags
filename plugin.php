@@ -30,8 +30,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         $this->tag_template = 'tag';
     }
 
-    public function on($eventKey, $data = null)
-    {
+    public function on($eventKey, $data = null) {
         if ($eventKey == 'config_loaded') {
             $this->config_loaded();
         } elseif ($eventKey == 'request_uri') {
@@ -39,9 +38,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
             $this->request_uri($data['uri']);
         } elseif ($eventKey == 'before_render_template') {
             $this->export_twig_vars();
-        }
-        elseif ($eventKey == 'after_read_file_meta')
-        {
+        } elseif ($eventKey == 'after_read_file_meta') {
             if (isset($data['meta']['tags'])) {
                 $data['meta']['tags_array'] = $this->tags_convert($data['meta']['tags']);
             }
@@ -71,8 +68,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         } 
     }
 
-    private function request_uri(&$uri)
-    {
+    private function request_uri(&$uri) {
         // Set is_tag to true if URL is tag/.*
         //error_log("DIRNAME URI: `" . dirname($uri) . "`", 0);
 
