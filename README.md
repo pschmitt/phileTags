@@ -43,6 +43,7 @@ Add a new `Tags` attribute to the page meta:
 Title: My First Blog Post
 Description: It's a blog post about javascript and php
 Author: Dan Reeves
+Robots: index,follow
 Date: 2014/04/04
 Tags: js, javascript, php
 */
