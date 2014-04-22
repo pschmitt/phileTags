@@ -60,7 +60,7 @@ Its default value is `','`.
 
 ## Templates
 
-You can now access both the current page `meta.tags` and each `page.meta.tags_array` in the `pages` array:
+You can now access both the current page `meta.tags_array` and each `page.meta.tags_array` in the `pages` array:
 
 `tag.html` template may look like:
 
