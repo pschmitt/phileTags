@@ -79,8 +79,8 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         $this->is_tag = ($dname === "tag");
         //error_log("URI: " . $uri . ' ' . ($this->is_tag ? "TAG PAGE" : "not a tag/ page"), 0);
         //error_log("Substr: " . dirname($uri), 0);
-        // If the URL does start with 'tag/', grab the rest of the URL
 
+        // If the URL does start with 'tag/', grab the rest of the URL
         $current_tag_raw = basename($uri);
         //error_log("current_tag_raw: $current_tag_raw");
 
