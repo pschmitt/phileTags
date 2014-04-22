@@ -65,7 +65,7 @@ class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObse
         }
         if (isset ($this->config['tag_template'])) {
             $this->tag_template = $this->config['tag_template'];
-        } 
+        }
     }
 
     private function request_uri(&$uri) {
