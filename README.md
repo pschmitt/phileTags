@@ -11,10 +11,13 @@ It gives you access to:
 
 ## Installation
 
-* Place this repo into the `plugins` directory:
+* Clone this repo to the `plugins/pschmitt/tags`:
 
 ```bash
-git clone https://github.com/pschmitt/phileTags /srv/http/plugins/phileTags 
+mkdir -p ~http/plugins/pschmitt
+git clone https://github.com/pschmitt/phileTags.git ~http/plugins/pschmitt/tags
+# You may consider using a submodule for this
+git submodule add http://github.com/pschmitt/phileTags.git /srv/http/plugins/pschmitt/tags
 ```
 
 * * *
@@ -28,8 +31,8 @@ git clone https://github.com/pschmitt/phileTags /srv/http/plugins/phileTags
 ```php
 $config['plugins'] = array(
     // [...]
-    'phileTags' => array('active' => true),
-); 
+    'pschmitt\\tags' => array('active' => true),
+);
 ```
 
 
@@ -52,10 +55,10 @@ Tags: js, javascript, php
 
 In `config.php` you can customize:
 
-* `$config['tag_template']` - which template should be used when on a `tag/` page. 
+* `$config['tag_template']` - which template should be used when on a `tag/` page.
 This setting defaults to `'tag'`.
 
-* `$config['tag_separator']` - the separator used for splitting the tag meta(regexps, like `'\s*'` are allowed). 
+* `$config['tag_separator']` - the separator used for splitting the tag meta(regexps, like `'\s*'` are allowed).
 Its default value is `','`.
 
 ## Templates

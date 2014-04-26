@@ -1,16 +1,21 @@
 <?php
 
+namespace Phile\Plugin\Pschmitt\Tags;
+
 /**
  * PhileTags
  *
  * Originally a pico plugin by DanReeves: https://github.com/DanReeves/picotags
  * Adds page tagging functionality to Phile.
  *
- * @author Philipp Schmitt
- * @link lxl.io
- * @license http://mit-license.org/
+ * @author  Philipp Schmitt
+ * @link    http://lxl.io
+ * @link    https://github.com/pschmitt/phileTags
+ * @license http://opensource.org/licenses/MIT
+ * @package Phile\Plugin\Pschmitt\Tags
  */
-class PhileTags extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObserverInterface {
+
+class Plugin extends \Phile\Plugin\AbstractPlugin implements \Phile\Gateway\EventObserverInterface {
 
     private $is_tag;
     private $current_tag;
