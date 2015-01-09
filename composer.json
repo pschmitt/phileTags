@@ -1,0 +1,19 @@
+{
+    "name": "pschmitt/tags",
+    "type": "phile-plugin",
+    "license": "MIT",
+    "description": "Tags for Phile CMS",
+    "homepage": "https://github.com/pschmitt/phileTags",
+    "keywords": ["cms", "phile", "plugin", "tags"],
+    "authors": [
+        {
+            "name": "Philipp Schmitt",
+            "email": "p@lxl.io",
+            "homepage": "http://lxl.io/"
+        }
+    ],
+    "require": {
+        "phile-cms/phile": ">=1.0",
+        "phile-cms/plugin-installer-plugin": ">=1.0"
+    }
+}
