@@ -1,5 +1,5 @@
 {
-    "name": "pschmitt/tags",
+    "name": "pschmitt/phile-tags",
     "type": "phile-plugin",
     "license": "MIT",
     "description": "Tags for Phile CMS",
