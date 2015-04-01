@@ -28,6 +28,7 @@ class Plugin extends \Phile\Plugin\AbstractPlugin implements \Phile\Gateway\Even
         \Phile\Event::registerEvent('before_render_template', $this);
         \Phile\Event::registerEvent('after_read_file_meta', $this);
         \Phile\Event::registerEvent('request_uri', $this);
+        \Phile\Event::registerEvent('after_parse_content', $this);
         $this->config = \Phile\Registry::get('Phile_Settings');
 
         // init
@@ -47,8 +48,9 @@ class Plugin extends \Phile\Plugin\AbstractPlugin implements \Phile\Gateway\Even
             if (isset($data['meta']['tags'])) {
                 $data['meta']['tags_array'] = $this->tags_convert($data['meta']['tags']);
             }
+        } elseif ($eventKey === 'after_parse_content') {
             if ($this->is_tag) {
-                $data['meta']['template'] = $this->tag_template;
+                $data['page']->getMeta()->set('template', $this->tag_template);
             }
         }
     }
